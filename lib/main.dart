@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Personal Expenses',
       home: MyHomePage(),
     );
   }
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Flutter App'), actions: <Widget>[
+      appBar: AppBar(title: Text('Personal Expenses'), actions: <Widget>[
         IconButton(
             onPressed: () => startAddNewtransaction(context),
             icon: Icon(Icons.add))
