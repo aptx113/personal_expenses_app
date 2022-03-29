@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:personal_expenses_app/widgets/new_transaction.dart';
 import 'package:personal_expenses_app/widgets/transaction_list.dart';
@@ -12,9 +14,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Personal Expenses',
-      home: MyHomePage(),
-    );
+        title: 'Personal Expenses',
+        home: MyHomePage(),
+        theme: ThemeData(
+            primarySwatch: Colors.purple,
+            floatingActionButtonTheme:
+                FloatingActionButtonThemeData(backgroundColor: Colors.amber),
+            fontFamily: 'Quicksand',
+            textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
+            appBarTheme: AppBarTheme(
+                titleTextStyle: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold))));
   }
 }
 
@@ -60,11 +76,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Personal Expenses'), actions: <Widget>[
-        IconButton(
-            onPressed: () => startAddNewtransaction(context),
-            icon: Icon(Icons.add))
-      ]),
+      appBar: AppBar(
+          title: Text(
+            'Personal Expenses',
+          ),
+          actions: <Widget>[
+            IconButton(
+                onPressed: () => startAddNewtransaction(context),
+                icon: Icon(Icons.add))
+          ]),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
