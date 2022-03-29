@@ -5,9 +5,8 @@ import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
   const Chart(
-    Key? key,
     this.recentTransactions,
-  ) : super(key: key);
+  );
 
   final List<Transaction> recentTransactions;
 
@@ -23,7 +22,7 @@ class Chart extends StatelessWidget {
         }
       }
 
-      return {'day': DateFormat.E(weekDay), "amount": 0};
+      return {'day': DateFormat.E().format(weekDay), "amount": totalSum};
     });
   }
 
@@ -32,7 +31,7 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Row(),
+      child: Row(children: [],),
     );
   }
 }

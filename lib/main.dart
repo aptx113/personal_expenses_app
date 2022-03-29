@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:personal_expenses_app/widgets/new_transaction.dart';
-import 'package:personal_expenses_app/widgets/transaction_list.dart';
-
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
 import './models/transaction.dart';
+import './widgets/chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,6 +42,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [];
 
+  void startAddNewtransaction(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) => GestureDetector(
+            onTap: () {},
+            child: NewTransaction(_addNewTransaction),
+            behavior: HitTestBehavior.opaque));
+  }
+
+  List<Transaction> get _recentTransaction => _userTransactions
+      .where(
+          (tx) => tx.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
+      .toList();
+
   void _addNewTransaction(String title, double amount) {
     final newTransaction = Transaction(
         title: title,
@@ -54,15 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _userTransactions.add(newTransaction);
     });
-  }
-
-  void startAddNewtransaction(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (_) => GestureDetector(
-            onTap: () {},
-            child: NewTransaction(_addNewTransaction),
-            behavior: HitTestBehavior.opaque));
   }
 
   @override
@@ -81,14 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('Chart'),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTransaction),
             TransactionList(_userTransactions)
           ],
         ),
