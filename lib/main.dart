@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           (tx) => tx.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
       .toList();
 
-  void _addNewTransaction(String title, double amount,DateTime chosenDate) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     final newTransaction = Transaction(
         title: title,
         amount: amount,
@@ -66,6 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       _userTransactions.add(newTransaction);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
     });
   }
 
@@ -86,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransaction),
-            TransactionList(_userTransactions)
+            TransactionList(_userTransactions,_deleteTransaction)
           ],
         ),
       ),
