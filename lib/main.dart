@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
                 headline6: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 18,
-                    fontWeight: FontWeight.bold)),
+                    fontWeight: FontWeight.bold),
+                button: TextStyle(color: Colors.white)),
             appBarTheme: AppBarTheme(
                 titleTextStyle: TextStyle(
                     fontFamily: 'OpenSans',
@@ -56,11 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
           (tx) => tx.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
       .toList();
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount,DateTime chosenDate) {
     final newTransaction = Transaction(
         title: title,
         amount: amount,
-        date: DateTime.now(),
+        date: chosenDate,
         id: DateTime.now().toString());
 
     setState(() {
