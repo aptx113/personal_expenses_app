@@ -10,7 +10,7 @@ import './widgets/chart.dart';
 void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitUp]);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,19 +20,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Personal Expenses',
-        home: MyHomePage(),
+        home: const MyHomePage(),
         theme: ThemeData(
             primarySwatch: Colors.purple,
             floatingActionButtonTheme:
-                FloatingActionButtonThemeData(backgroundColor: Colors.amber),
+                const FloatingActionButtonThemeData(backgroundColor: Colors.amber),
             fontFamily: 'Quicksand',
             textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
+                headline6: const TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
-                button: TextStyle(color: Colors.white)),
-            appBarTheme: AppBarTheme(
+                button: const TextStyle(color: Colors.white)),
+            appBarTheme: const AppBarTheme(
                 titleTextStyle: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 20,
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Transaction> get _recentTransaction => _userTransactions
       .where(
-          (tx) => tx.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
+          (tx) => tx.date.isAfter(DateTime.now().subtract(const Duration(days: 7))))
       .toList();
 
   void _addNewTransaction(String title, double amount, DateTime chosenDate) {
@@ -90,15 +90,15 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
-        title: Text(
+        title: const Text(
           'Personal Expenses',
         ),
         actions: <Widget>[
           IconButton(
               onPressed: () => startAddNewtransaction(context),
-              icon: Icon(Icons.add))
+              icon: const Icon(Icons.add))
         ]);
-    final txListWidget = Container(
+    final txListWidget = SizedBox(
         height: (mediaQuery.size.height -
                 appBar.preferredSize.height -
                 mediaQuery.padding.top) *
@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           if (!isLandscape)
-            Container(
+            SizedBox(
                 height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
                         mediaQuery.padding.top) *
@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (!isLandscape) txListWidget,
           if (isLandscape)
             _showChart
-                ? Container(
+                ? SizedBox(
                     height: (mediaQuery.size.height -
                             appBar.preferredSize.height -
                             mediaQuery.padding.top) *
@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: Platform.isIOS
           ? Container()
           : FloatingActionButton(
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
               onPressed: () => startAddNewtransaction(context),
             ),
     );

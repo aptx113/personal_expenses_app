@@ -19,7 +19,7 @@ class AdaptiveTextButton extends StatelessWidget {
         ? CupertinoButton(
             child: Text(
               text,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             onPressed: handler)
         : TextButton(
@@ -27,7 +27,7 @@ class AdaptiveTextButton extends StatelessWidget {
                 TextButton.styleFrom(primary: Theme.of(context).primaryColor),
             child: Text(
               text,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             onPressed: handler,
           );

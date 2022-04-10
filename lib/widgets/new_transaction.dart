@@ -1,12 +1,9 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:personal_expenses_app/widgets/adaptive_tex_button.dart';
 
 class NewTransaction extends StatefulWidget {
-  NewTransaction(
+  const NewTransaction(
     this.onSumit,
   );
 
@@ -77,7 +74,7 @@ class _NewTransactionState extends State<NewTransaction> {
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _sumitData(),
             ),
-            Container(
+            SizedBox(
               height: 70,
               child: Row(
                 children: <Widget>[
@@ -86,7 +83,8 @@ class _NewTransactionState extends State<NewTransaction> {
                         ? 'No Date Chosen'
                         : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}'),
                   ),
-                 AdaptiveTextButton(text: 'Choos Date', handler: _presentDatePicker)
+                  AdaptiveTextButton(
+                      text: 'Choos Date', handler: _presentDatePicker)
                 ],
               ),
             ),
