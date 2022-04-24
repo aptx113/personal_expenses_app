@@ -3,20 +3,47 @@ import 'package:intl/intl.dart';
 import 'package:personal_expenses_app/widgets/adaptive_tex_button.dart';
 
 class NewTransaction extends StatefulWidget {
-  const NewTransaction(
+  NewTransaction(
     this.onSumit,
-  );
+  ) {
+    print('Constructor NewTransaction Widget');
+  }
 
   final Function onSumit;
 
   @override
-  State<NewTransaction> createState() => _NewTransactionState();
+  State<NewTransaction> createState() {
+    print('createState NewTransaction Widget');
+    return _NewTransactionState();
+  }
 }
 
 class _NewTransactionState extends State<NewTransaction> {
   final _amountController = TextEditingController();
   DateTime? _selectedDate;
   final _titleController = TextEditingController();
+
+  _NewTransactionState() {
+    print('Constructor NewTransaction State');
+  }
+
+  @override
+  void initState() {
+    print('initState');
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant NewTransaction oldWidget) {
+    print('didUpdateWidget()');
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    print('dispose');
+    super.dispose();
+  }
 
   void _sumitData() {
     if (_amountController.text.isEmpty) {

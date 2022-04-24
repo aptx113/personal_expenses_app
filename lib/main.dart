@@ -48,7 +48,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final List<Transaction> _userTransactions = [];
 
   void _startAddNewtransaction(BuildContext context) {
@@ -61,6 +61,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance?.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
 
   List<Transaction> get _recentTransaction => _userTransactions
       .where((tx) =>
@@ -85,8 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  List<Widget> _buildLandscapeContent(
-      MediaQueryData mediaQuery, PreferredSizeWidget appBar, Widget txListWidget) {
+  List<Widget> _buildLandscapeContent(MediaQueryData mediaQuery,
+      PreferredSizeWidget appBar, Widget txListWidget) {
     return [
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -116,8 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  List<Widget> _buildPortraitContent(
-      MediaQueryData mediaQuery, PreferredSizeWidget appBar, Widget txListWidget) {
+  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery,
+      PreferredSizeWidget appBar, Widget txListWidget) {
     return [
       SizedBox(
           height: (mediaQuery.size.height -
@@ -129,38 +146,37 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  PreferredSizeWidget _buildIOSNavigationBar() =>
-      CupertinoNavigationBar(
+  PreferredSizeWidget _buildIOSNavigationBar() => CupertinoNavigationBar(
         middle: Text('Personal Expenses'),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             GestureDetector(
-              child: Icon(
-                CupertinoIcons.add,
-              ),
-              onTap: () => _startAddNewtransaction(context)
-              ),
+                child: Icon(
+                  CupertinoIcons.add,
+                ),
+                onTap: () => _startAddNewtransaction(context)),
           ],
         ),
       );
 
-      PreferredSizeWidget _buildAppBar() =>AppBar(
-        title: const Text(
-          'Personal Expenses',
-        ),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () => _startAddNewtransaction(context),
-              icon: const Icon(Icons.add))
-        ]);
+  PreferredSizeWidget _buildAppBar() => AppBar(
+          title: const Text(
+            'Personal Expenses',
+          ),
+          actions: <Widget>[
+            IconButton(
+                onPressed: () => _startAddNewtransaction(context),
+                icon: const Icon(Icons.add))
+          ]);
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    final PreferredSizeWidget appBar = Platform.isIOS ? _buildIOSNavigationBar():_buildAppBar() ;
+    final PreferredSizeWidget appBar =
+        Platform.isIOS ? _buildIOSNavigationBar() : _buildAppBar();
     final txListWidget = SizedBox(
         height: (mediaQuery.size.height -
                 appBar.preferredSize.height -
