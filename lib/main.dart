@@ -182,7 +182,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                 appBar.preferredSize.height -
                 mediaQuery.padding.top) *
             0.7,
-        child: TransactionList(_userTransactions, _deleteTransaction));
+        child: TransactionList(
+            transactions: _userTransactions, deleteTx: _deleteTransaction));
     final pageBody = SafeArea(
         child: SingleChildScrollView(
       child: Column(
